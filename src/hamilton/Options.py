@@ -20,7 +20,7 @@ class Options(object):
         self._parser.add_argument('_algorithms', metavar='ALGORITHM', choices=self._knownAlgorithms.keys(), nargs='+', help='algorithm used for solving given problem (available options: %(choices)s)')
         self._parser.add_argument('-d', '--display', dest='_formatter', default='text', metavar='FORMATTER', choices=self._knownFormatters.keys(), help='formatter used to present results (available options: %(choices)s)')
         self._parser.add_argument('-l', '--loops', dest='_loops', default=1, metavar='N', type=int, help='number of loops for each algorithm')
-        self._parser.add_argument('-s', '--seed', dest='_seed', default=1, metavar='SEED', type=int, help='seed to initialize random generator')
+        self._parser.add_argument('-s', '--seed', dest='_seed', default=None, metavar='SEED', type=int, help='seed to initialize random generator')
         self._parser.add_argument('-ism', '--increment', action='store_true', dest='_increment_seed', default=False, help='seed increment mode')
 
         datasources = self._parser.add_mutually_exclusive_group(required=True)

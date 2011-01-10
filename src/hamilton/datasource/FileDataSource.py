@@ -12,8 +12,21 @@ class FileDataSource(DataSource):
     
     def __init__(self, file):
         self._file = file
+        self._data = None
+    
+    
+    def initialize(self):
+        # do not reinitialize
+        if self._data <> None:
+            return
+            
+        self._data = self.loadData()
+    
     
     def getData( self ):
+        return self._data;
+    
+    def loadData(self):
         data = []
         
         for line in self._file:

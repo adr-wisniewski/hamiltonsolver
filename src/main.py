@@ -1,4 +1,5 @@
 import time
+import random
 from hamilton.Options import Options
 
 #read command line options
@@ -10,10 +11,9 @@ loops = options.getLoops()
 isIncrementSeedMode = options.isIncrementSeedMode()
 seed = options.getSeed()
 
-if(seed):
-    datasource.setSeed(seed)
-
 #prepare and display data
+random.seed(seed)
+datasource.initialize()
 data = datasource.getData()
 formatter.displayData(data)
 
@@ -21,18 +21,19 @@ formatter.displayData(data)
 for ordinal, algorithm in enumerate(algorithms):
     times = []
     solutions = []
-    for loop in xrange(loops):
-        if isIncrementSeedMode:
-            datasource.setSeed(seed)
-            seed=seed+1
-            data=datasource.getData()
+    for loop in xrange(loops):           
         start = time.clock()
         solution = algorithm.solve(data)
         end = time.clock()
 
         times.append(end - start)
         solutions.append(solution[0])
-
+        
+        if isIncrementSeedMode:
+            seed=seed+1
+            random.seed(seed)
+            datasource.initialize()
+            
 
     minimal = min(times)
     maximal = max(times)

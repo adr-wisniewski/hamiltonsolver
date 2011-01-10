@@ -7,6 +7,5 @@ class DataSource(object):
     def getData( self ):
         raise NotImplementedError()
     
-    @staticmethod
-    def fromOption( option ):
+    def initialize(self):
         raise NotImplementedError()

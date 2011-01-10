@@ -18,19 +18,18 @@ class RandomGeneratorDataSource(DataSource):
 
     def __init__(self, vertices):
         self._vertices = vertices
-        self._initData()
+        self._data = None
 
-    def _initData(self):
-        self._data = []
-        #random.seed(0)
-        for _ in xrange(self._vertices):
-            row = [random.randint(self._randMin, self._randMax) / self._randDivisor for _ in xrange(self._vertices)]
-            self._data.append(row)
+    def initialize(self):
+        self._data = self.generateRandomData()
 
     def getData(self):
         return self._data
-
-    def setSeed(self,seed):
-        self._seed = seed
-        random.seed(self._seed)
-        self._initData()
+    
+    def generateRandomData(self):
+        data = []
+        for _ in xrange(self._vertices):
+            row = [random.randint(self._randMin, self._randMax) / self._randDivisor for _ in xrange(self._vertices)]
+            data.append(row)
+            
+        return data
